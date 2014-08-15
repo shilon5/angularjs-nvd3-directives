@@ -112,7 +112,7 @@ module.exports = function (grunt) {
 		changelog: {
 			release: {
 				options: {
-					version: 'v0.0.7'
+					version: 'v0.0.9'
 				}
 			}
 		}
