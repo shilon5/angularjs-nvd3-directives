@@ -135,6 +135,6 @@ module.exports = function (grunt) {
 	grunt.registerTask('bower', ['bower:install']);
 
 	// Default task.
-	grunt.registerTask('default', ['clean', 'ngmin', 'concat', 'jsbeautifier', 'jshint', 'uglify']);
+	grunt.registerTask('default', ['clean', 'ngmin', 'concat', 'jsbeautifier', 'jshint', 'uglify', 'copy:main']);
 
 };

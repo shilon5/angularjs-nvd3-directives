@@ -13,17 +13,6 @@
     }
 
 
-    function getD3Selector(attrs, element) {
-        if (!attrs.id) {
-            //if an id is not supplied, create a random id.
-            if (!attrs['data-chartid']) {
-                angular.element(element).attr('data-chartid', 'chartid' + Math.floor(Math.random() * 1000000001));
-            }
-            return '[data-chartid=' + attrs['data-chartid'] + ']';
-        } else {
-            return '#' + attrs.id;
-        }
-    }
 
     function checkElementID(scope, attrs, element, chart, data) {
         configureXaxis(chart, scope, attrs);
@@ -34,41 +23,50 @@
         configureLegend(chart, scope, attrs);
         processEvents(chart, scope);
 
-        var d3Select = getD3Selector(attrs, element);
-
+        var dataAttributeChartID; //randomly generated if id attribute doesn't exist
+        if(!attrs.id){
+            dataAttributeChartID = 'chartid' + Math.floor(Math.random()*1000000001);
+            angular.element(element).attr('data-chartid', dataAttributeChartID );
+            //if an id is not supplied, create a random id.
+            if(d3.select('[data-chartid=' + dataAttributeChartID + '] svg').empty()) {
+                d3.select('[data-chartid=' + dataAttributeChartID + ']').append('svg')
+                .attr('height', scope.height)
+                .attr('width', scope.width)
+                .datum(data)
+                .transition().duration((attrs.transitionduration === undefined ? 250 : (+attrs.transitionduration)))
+                .call(chart);
+            } else {
+                d3.select('[data-chartid=' + dataAttributeChartID + '] svg')
+                .attr('height', scope.height)
+                .attr('width', scope.width)
+                .datum(data)
+                .transition().duration((attrs.transitionduration === undefined ? 250 : (+attrs.transitionduration)))
+                .call(chart);
+            }
+        } else {
         if (angular.isArray(data) && data.length === 0) {
-            d3.select(d3Select + ' svg').remove();
+                d3.select('#' + attrs.id + ' svg').remove();
         }
-        if (d3.select(d3Select + ' svg').empty()) {
-            d3.select(d3Select)
+            if(d3.select('#' + attrs.id + ' svg').empty()) {
+                d3.select('#' + attrs.id)
                 .append('svg');
         }
-        d3.select(d3Select + ' svg')
-            .attr('viewBox', '0 0 ' + scope.width + ' ' + scope.height)
+            d3.select('#' + attrs.id + ' svg')
+                .attr('height', scope.height)
+                .attr('width', scope.width)
             .datum(data)
             .transition().duration((attrs.transitionduration === undefined ? 250 : (+attrs.transitionduration)))
             .call(chart);
     }
 
-    function updateDimensions(scope, attrs, element, chart) {
-        if (chart) {
-            chart.width(scope.width).height(scope.height);
-            var d3Select = getD3Selector(attrs, element);
-            d3.select(d3Select + ' svg')
-                .attr('viewBox', '0 0 ' + scope.width + ' ' + scope.height);
-            nv.utils.windowResize(chart);
-            scope.chart.update();
-        }
     }
 
     angular.module('nvd3ChartDirectives', [])
-        .directive('nvd3LineChart', ['$filter', function($filter){
+        .directive('nvd3LineChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -160,11 +158,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -215,13 +209,11 @@
                 }
             };
         }])
-        .directive('nvd3CumulativeLineChart', ['$filter', function($filter){
+        .directive('nvd3CumulativeLineChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -314,11 +306,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -371,13 +359,11 @@
                 }
             };
         }])
-        .directive('nvd3StackedAreaChart', ['$filter', function($filter){
+        .directive('nvd3StackedAreaChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -478,11 +464,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -580,13 +562,11 @@
                 }
             };
         }])
-        .directive('nvd3MultiBarChart', ['$filter', function($filter){
+        .directive('nvd3MultiBarChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -675,11 +655,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -725,13 +701,11 @@
                 }
             };
         }])
-        .directive('nvd3DiscreteBarChart', ['$filter', function($filter){
+        .directive('nvd3DiscreteBarChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -815,11 +789,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -864,13 +834,11 @@
                 }
             };
         }])
-        .directive('nvd3HistoricalBarChart', ['$filter', function($filter){
+        .directive('nvd3HistoricalBarChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -957,11 +925,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1007,13 +971,11 @@
                 }
             };
         }])
-        .directive('nvd3MultiBarHorizontalChart', ['$filter', function($filter){
+        .directive('nvd3MultiBarHorizontalChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1099,11 +1061,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1150,13 +1108,11 @@
                 }
             };
         }])
-        .directive('nvd3PieChart', ['$filter', function($filter){
+        .directive('nvd3PieChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1203,11 +1159,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1253,13 +1205,11 @@
                 }
             };
         }])
-        .directive('nvd3ScatterChart', ['$filter', function($filter){
+        .directive('nvd3ScatterChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1363,11 +1313,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1456,13 +1402,11 @@
                 }
             };
         }])
-        .directive('nvd3ScatterPlusLineChart', ['$filter', function($filter){
+        .directive('nvd3ScatterPlusLineChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1563,14 +1507,10 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
-
+                            //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
                             if(scope.chart){
                                 return scope.d3Call(data, scope.chart);
                             }
@@ -1586,7 +1526,7 @@
                                         .size(attrs.size === undefined ? function(d){ return (d.size === undefined ? 1 : d.size); }: scope.size())
                                         .interactive(attrs.interactive === undefined ? false : (attrs.interactive === 'true'))
                                         .tooltips(attrs.tooltips === undefined ? false : (attrs.tooltips  === 'true'))
-                                        .tooltipContent(attrs.tooltipContent === undefined ? null : scope.tooltipContent())
+                                        .tooltipContent(attrs.tooltipcontent === undefined ? function(key, x, y){ return '<strong>def: ' + key + '</strong><div>' + y + ' on ' + x + '</div>';} : scope.tooltipContent())
                                         .tooltipXContent(attrs.tooltipxcontent === undefined ? function(key, x) { return '<strong>' + x + '</strong>'; } : scope.tooltipXContent())
                                         .tooltipYContent(attrs.tooltipycontent === undefined ? function(key, x, y) { return '<strong>' + y + '</strong>'; } : scope.tooltipYContent())
                                         .showControls(attrs.showcontrols === undefined ? false : (attrs.showcontrols === 'true'))
@@ -1615,13 +1555,11 @@
                 }
             };
         }])
-        .directive('nvd3LinePlusBarChart', ['$filter', function($filter){
+        .directive('nvd3LinePlusBarChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1735,11 +1673,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1795,13 +1729,11 @@
                 }
             };
         }])
-        .directive('nvd3LineWithFocusChart', ['$filter', function($filter){
+        .directive('nvd3LineWithFocusChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     height2: '@',
@@ -1935,11 +1867,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2010,13 +1938,11 @@
                 }
             };
         }])
-        .directive('nvd3BulletChart', ['$filter', function($filter){
+        .directive('nvd3BulletChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -2045,11 +1971,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2087,13 +2009,11 @@
                 }
             };
         }])
-        .directive('nvd3SparklineChart', ['$filter', function($filter){
+        .directive('nvd3SparklineChart', [function(){
             return {
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -2126,11 +2046,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2174,7 +2090,7 @@
                 }
             };
         }])
-        .directive('nvd3SparklineWithBandlinesChart', ['$filter', function($filter){
+        .directive('nvd3SparklineWithBandlinesChart', [function(){
             /**
              * http://www.perceptualedge.com/articles/visual_business_intelligence/introducing_bandlines.pdf
              * You need five primary facts about a set of time-series values to construct a bandline:
@@ -2188,8 +2104,6 @@
                 restrict: 'EA',
                 scope: {
                     data: '=',
-                    filtername: '=',
-                    filtervalue: '=',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -2285,11 +2199,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('width + height', function() { updateDimensions(scope,attrs,element,scope.chart); });
                     scope.$watch('data', function(data){
-                        if (data && angular.isDefined(scope.filtername) && angular.isDefined(scope.filtervalue)) {
-                            data =  $filter(scope.filtername)(data, scope.filtervalue);
-                        }
                         
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
