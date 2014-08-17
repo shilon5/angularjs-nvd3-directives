@@ -3,7 +3,7 @@
 var nv = window.nv || {};
 
 
-nv.version = '1.1.15b';
+nv.version = '1.1.19b';
 nv.dev = true //set false when in production
 
 window.nv = nv;
@@ -4880,9 +4880,19 @@ nv.models.indentedTree = function() {
       var wrap = container.selectAll('g.nv-legend').data([data]);
       var gEnter = wrap.enter().append('g').attr('class', 'nvd3 nv-legend').append('g');
       var g = wrap.select('g');
-
+        
+//        console.log( "chart availableWidth", availableWidth );
+        
+        var defs = container.selectAll('defs').data([data]);
+        defs.enter().append('defs')
+        .append('clipPath')
+        .attr('id', 'legendClip')
+        .append('rect');
+        
+        defs.select('#legendClip rect')
+        .attr({ x: -10, y: 0, height: 30, width: availableWidth });
+        
       wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
       //------------------------------------------------------------
 
 
@@ -5005,12 +5015,62 @@ nv.models.indentedTree = function() {
             curX += columnWidths[i];
         }
 
+          container.attr('clip-path', null);
+
+          
           if (legendWidth > availableWidth) {
+    
+              var pr = d3.select(this.parentNode);
+              container.attr('clip-path', 'url(#legendClip)');
+              
+              pr.selectAll('path.legendScroll.left').data([1])
+              .enter()
+              .append('path')              
+              .attr('class', 'legendScroll left');
+              
+              pr.selectAll('path.legendScroll.left')
+              .attr('d', 'M -5 -40  L -15 -35  L -5 -30  L -5 -40 M -12 -40  L -20 -35  L -12 -30  L -12 -40')
+              .on('click', function(){
+                var ts = g.attr('transform');
+                  var res = (/[\-0-9]+/gi).exec(ts);
+                  if ( !!res ){
+                      res = parseInt(res[0]);
+                  
+                      res = Math.min(0, res + availableWidth/2);
+                    g.transition().attr('transform', "translate(" + res + ", " + margin.top + ")") ;
+                  }
+              
+              });
+              
+              
+              pr.selectAll('path.legendScroll.right').data([1])
+              .enter()
+              .append('path')              
+              .attr('class', 'legendScroll right');
+              
+              pr.selectAll('path.legendScroll.right')              
+              .attr('d', 'M ' + (availableWidth+13) +' -40  L ' + (availableWidth+23) + ' -35  L ' + (availableWidth+13) + ' -30  L ' + (availableWidth+13) + ' -40 ' + 
+                   'M ' + (availableWidth+20) +' -40  L ' + (availableWidth+30) + ' -35  L ' + (availableWidth+20) + ' -30  L ' + (availableWidth+20) + ' -40')
+              //.attr({x:availableWidth, y:-50, width: 20, height: 20, fill:'green'})
+              .on('click', function(){
+                var ts = g.attr('transform');
+                  var res = (/[\-0-9]+/gi).exec(ts);
+                  if ( !!res ){
+                      res = parseInt(res[0]);
+                      res = Math.max(availableWidth - legendWidth, res - availableWidth/2);
+                    g.transition().attr('transform', "translate(" + res + ", " + margin.top + ")") ;
+                  }
+              
+              });
+              
               var drag = function () {
                   var xPos = 0;
 
                   return d3.behavior.drag()
                       .on("drag", function (d, i) {
+                          
+//                          console.log( "availableWidth", availableWidth );
+                          
                           if (xPos + d3.event.dx < 0 )
                               xPos = Math.max(availableWidth - legendWidth, xPos + d3.event.dx);
                           else {
@@ -5025,8 +5085,10 @@ nv.models.indentedTree = function() {
                       });
 
               }();
+              
+              
 
-              g.call(drag);
+              //g.call(drag);
 
           }
 
@@ -5037,10 +5099,10 @@ nv.models.indentedTree = function() {
 
         //position legend as far right as possible within the total width
         if (rightAlign) {
-           g.attr('transform', 'translate(' + (width - margin.right - legendWidth) + ',' + margin.top + ')');
+           gEnter.attr('transform', 'translate(' + (width - margin.right - legendWidth) + ',' + margin.top + ')');
         }
         else {
-           g.attr('transform', 'translate(0' + ',' + margin.top + ')');
+           gEnter.attr('transform', 'translate(0' + ',' + margin.top + ')');
         }
 
 
@@ -11371,7 +11433,7 @@ nv.models.scatter = function() {
         points.transition()
             .attr('cx', function(d,i) { return nv.utils.NaNtoZero(x(getX(d,i))) })
             .attr('cy', function(d,i) { return nv.utils.NaNtoZero(y(getY(d,i))) })
-            .attr('r', function(d,i) { return Math.sqrt(z(getSize(d,i))/Math.PI) });
+            .attr('r', 5 /*function(d,i) { return Math.sqrt(z(getSize(d,i))/Math.PI) }*/);
 
       } else {
 

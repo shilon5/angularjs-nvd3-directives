@@ -782,3 +782,11 @@ Interactive Layer
 .nvd3 line.nv-guideline {
   stroke: #ccc;
 }
+
+.nvd3 .legendScroll{
+    opacity: 0.5;
+}
+
+.nvd3 .legendScroll:hover{
+    opacity: 1;
+}

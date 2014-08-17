@@ -1222,9 +1222,9 @@
                     fisheye: '@',
                     xPadding: '@',
                     yPadding: '@',
-                    tooltipContent: '&',
-                    tooltipXContent: '&',
-                    tooltipYContent: '&',
+                    tooltipcontent: '&',
+                    tooltipxcontent: '&',
+                    tooltipycontent: '&',
                     color: '&',
                     margin: '&',
                     nodata: '@',
@@ -1335,9 +1335,9 @@
                                         .forceSize(attrs.forcesize === undefined ? [] : scope.$eval(attrs.forcesize))
                                         .interactive(attrs.interactive === undefined ? false : (attrs.interactive === 'true'))
                                         .tooltips(attrs.tooltips === undefined ? false : (attrs.tooltips  === 'true'))
-                                        .tooltipContent(attrs.tooltipContent === undefined ? function(key, x, y) { return '<strong>' + key + '</strong>' + '<p>' + x + ' on ' + y + '</p>'; } : scope.tooltipContent())
-                                        .tooltipXContent(attrs.tooltipxcontent === undefined ? function(key, x) { return '<strong>' + x + '</strong>'; } : scope.tooltipXContent())
-                                        .tooltipYContent(attrs.tooltipycontent === undefined ? function(key, x, y) { return '<strong>' + y + '</strong>'; } : scope.tooltipYContent())
+                                        .tooltipContent(attrs.tooltipcontent === undefined ? function(key, x, y) { return '<strong>' + key + '</strong>' + '<p>' + x + ' on ' + y + '</p>'; } : scope.tooltipcontent())
+                                        .tooltipXContent(attrs.tooltipxcontent === undefined ? function(key, x) { return '<strong>' + x + '</strong>'; } : scope.tooltipxcontent())
+                                        .tooltipYContent(attrs.tooltipycontent === undefined ? function(key, x, y) { return '<strong>' + y + '</strong>'; } : scope.tooltipycontent())
                                         .showControls(attrs.showcontrols === undefined ? false : (attrs.showcontrols === 'true'))
                                         .showLegend(attrs.showlegend === undefined ? false : (attrs.showlegend === 'true'))
                                         .showDistX(attrs.showdistx === undefined ? false : (attrs.showdistx === 'true'))
@@ -1417,9 +1417,9 @@
                     showDistY: '@',
                     rightAlignYAxis: '@',
                     fisheye: '@',
-                    tooltipContent: '&',
-                    tooltipXContent: '&',
-                    tooltipYContent: '&',
+                    tooltipcontent: '&',
+                    tooltipxcontent: '&',
+                    tooltipycontent: '&',
                     color: '&',
                     margin: '&',
                     nodata: '@',
@@ -1526,9 +1526,9 @@
                                         .size(attrs.size === undefined ? function(d){ return (d.size === undefined ? 1 : d.size); }: scope.size())
                                         .interactive(attrs.interactive === undefined ? false : (attrs.interactive === 'true'))
                                         .tooltips(attrs.tooltips === undefined ? false : (attrs.tooltips  === 'true'))
-                                        .tooltipContent(attrs.tooltipcontent === undefined ? function(key, x, y){ return '<strong>' + key + '</strong><p>' + y + ' on ' + x + '</p>';} : scope.tooltipContent())
-                                        .tooltipXContent(attrs.tooltipxcontent === undefined ? function(key, x) { return '<strong>' + x + '</strong>'; } : scope.tooltipXContent())
-                                        .tooltipYContent(attrs.tooltipycontent === undefined ? function(key, x, y) { return '<strong>' + y + '</strong>'; } : scope.tooltipYContent())
+                                        .tooltipContent(attrs.tooltipcontent === undefined ? function(key, x, y){ return '<strong>' + key + '</strong><p>' + y + ' on ' + x + '</p>';} : scope.tooltipcontent())
+                                        .tooltipXContent(attrs.tooltipxcontent === undefined ? function(key, x) { return '<strong>' + x + '</strong>'; } : scope.tooltipxcontent())
+                                        .tooltipYContent(attrs.tooltipycontent === undefined ? function(key, x, y) { return '<strong>' + y + '</strong>'; } : scope.tooltipycontent())
                                         .showControls(attrs.showcontrols === undefined ? false : (attrs.showcontrols === 'true'))
                                         .showLegend(attrs.showlegend === undefined ? false : (attrs.showlegend === 'true'))
                                         .showDistX(attrs.showdistx === undefined ? false : (attrs.showdistx === 'true'))
