@@ -66,7 +66,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -158,7 +158,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -213,7 +213,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -306,7 +306,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -363,7 +363,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -464,8 +464,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
-
+                    scope.datafn()(function(data){
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
                             if(scope.chart){
@@ -558,7 +557,7 @@
                                 callback: attrs.callback === undefined ? null : scope.callback()
                             });
                         }
-                    }, (attrs.objectequality === undefined ? false : (attrs.objectequality === 'true')));
+                    });
                 }
             };
         }])
@@ -566,7 +565,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -655,7 +654,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -705,7 +704,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -789,7 +788,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -838,7 +837,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -925,7 +924,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -975,7 +974,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1061,7 +1060,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1112,7 +1111,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1159,7 +1158,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1209,7 +1208,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '@',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1313,8 +1312,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
-
+                    scope.datafn()( function(data){
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
                             if(scope.chart){
@@ -1398,7 +1396,7 @@
                                 callback: attrs.callback === undefined ? null : scope.callback()
                             });
                         }
-                    }, (attrs.objectequality === undefined ? false : (attrs.objectequality === 'true')));
+                    });
                 }
             };
         }])
@@ -1406,7 +1404,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1507,8 +1505,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
-
+                    scope.datafn()(function(data){
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
                             if(scope.chart){
@@ -1559,7 +1556,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1673,7 +1670,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1733,7 +1730,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     height2: '@',
@@ -1867,7 +1864,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()( function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1942,7 +1939,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -1971,7 +1968,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2013,7 +2010,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -2046,7 +2043,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
 
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2103,7 +2100,7 @@
             return {
                 restrict: 'EA',
                 scope: {
-                    data: '=',
+                    datafn: '&',
                     width: '@',
                     height: '@',
                     id: '@',
@@ -2199,7 +2196,7 @@
                     };
                 }],
                 link: function(scope, element, attrs){
-                    scope.$watch('data', function(data){
+                    scope.datafn()(function(data){
                         
                         if(data){
                             //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
