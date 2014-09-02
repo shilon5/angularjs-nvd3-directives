@@ -68,7 +68,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
@@ -158,6 +158,14 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -215,7 +223,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
@@ -306,6 +314,14 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -365,7 +381,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
@@ -464,6 +480,13 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -568,7 +591,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
@@ -655,6 +678,13 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -707,7 +737,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     tooltips: '@',
                     showxaxis: '@',
@@ -789,6 +819,14 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -840,7 +878,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     tooltips: '@',
                     tooltipcontent: '&',
@@ -925,6 +963,15 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -977,7 +1024,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
@@ -1061,6 +1108,15 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -1114,7 +1170,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     showlabels: '@',
                     showlegend: '@',
@@ -1159,6 +1215,15 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -1211,7 +1276,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
@@ -1313,6 +1378,15 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -1408,7 +1482,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
@@ -1507,6 +1581,15 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -1561,7 +1644,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     showlegend: '@',
                     tooltips: '@',
@@ -1673,6 +1756,15 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -1735,7 +1827,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     height2: '@',
                     id: '@',
                     showlegend: '@',
@@ -1867,6 +1959,14 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -1944,7 +2044,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     margin: '&',
                     tooltips: '@',
@@ -1971,6 +2071,14 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -2015,7 +2123,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     margin: '&',
                     x: '&',
@@ -2046,6 +2154,14 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
                     scope.$watch('data', function(data){
 
                         if(data){
@@ -2105,7 +2221,7 @@
                 scope: {
                     data: '=',
                     width: '@',
-                    height: '@',
+                    height: '=',
                     id: '@',
                     margin: '&',
                     x: '&',
@@ -2199,6 +2315,14 @@
                     };
                 }],
                 link: function(scope, element, attrs){
+                    scope.$watch('height', function(newHeight){
+                        if ( scope.chart){
+                            scope.chart.height(newHeight);
+                            return scope.d3Call(scope.data, scope.chart);
+                        }
+                        // o/w: we don't have data yet
+                    });
+
                     scope.$watch('data', function(data){
                         
                         if(data){

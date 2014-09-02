@@ -1,4 +1,4 @@
-/*! angularjs-nvd3-directives - v0.0.9-beta - 2014-08-17
+/*! angularjs-nvd3-directives - v0.0.9-beta - 2014-09-02
  * http://cmaurer.github.io/angularjs-nvd3-directives
  * Copyright (c) 2014 Christian Maurer; Licensed Apache License, v2.0 */
 ( function () {
@@ -802,7 +802,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           showlegend: '@',
           tooltips: '@',
@@ -886,6 +886,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -929,7 +935,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           showlegend: '@',
           tooltips: '@',
@@ -1015,6 +1021,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1059,7 +1071,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           showlegend: '@',
           tooltips: '@',
@@ -1153,6 +1165,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1232,7 +1250,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           showlegend: '@',
           tooltips: '@',
@@ -1313,6 +1331,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1349,7 +1373,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           tooltips: '@',
           showxaxis: '@',
@@ -1426,6 +1450,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1465,7 +1495,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           tooltips: '@',
           tooltipcontent: '&',
@@ -1545,6 +1575,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1587,7 +1623,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           showlegend: '@',
           tooltips: '@',
@@ -1664,6 +1700,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1703,7 +1745,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           showlabels: '@',
           showlegend: '@',
@@ -1746,6 +1788,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1784,7 +1832,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           showlegend: '@',
           tooltips: '@',
@@ -1882,6 +1930,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -1959,7 +2013,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           showlegend: '@',
           tooltips: '@',
@@ -2055,6 +2109,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2102,7 +2162,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           showlegend: '@',
           tooltips: '@',
@@ -2204,6 +2264,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2254,7 +2320,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           height2: '@',
           id: '@',
           showlegend: '@',
@@ -2377,6 +2443,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2449,7 +2521,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           margin: '&',
           tooltips: '@',
@@ -2475,6 +2547,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2507,7 +2585,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           margin: '&',
           x: '&',
@@ -2536,6 +2614,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
@@ -2584,7 +2668,7 @@
         scope: {
           data: '=',
           width: '@',
-          height: '@',
+          height: '=',
           id: '@',
           margin: '&',
           x: '&',
@@ -2654,6 +2738,12 @@
           }
         ],
         link: function ( scope, element, attrs ) {
+          scope.$watch( 'height', function ( newHeight ) {
+            if ( scope.chart ) {
+              scope.chart.height( newHeight );
+              return scope.d3Call( scope.data, scope.chart );
+            } // o/w: we don't have data yet
+          } );
           scope.$watch( 'data', function ( data ) {
             if ( data ) {
               //if the chart exists on the scope, do not call addGraph again, update data and call the chart.
