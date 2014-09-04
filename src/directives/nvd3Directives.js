@@ -712,7 +712,7 @@
                                         .noData(attrs.nodata === undefined ? 'No Data Available.' : scope.nodata)
                                         .rotateLabels(attrs.rotatelabels === undefined ? 0 : attrs.rotatelabels)
                                         .color(attrs.color === undefined ? nv.utils.defaultColor()  : scope.color())
-                                        .delay(attrs.delay === undefined ? 1200 : attrs.delay)
+                                        .delay(attrs.delay === undefined ? 0 : attrs.delay)
                                         .stacked(attrs.stacked === undefined ? false : (attrs.stacked === 'true'));
 
                                     if(attrs.tooltipcontent){

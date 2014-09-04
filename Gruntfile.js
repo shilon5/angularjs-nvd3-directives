@@ -47,7 +47,13 @@ module.exports = function (grunt) {
 				src: 'Gruntfile.js'
 			}
 		},
-		jsbeautifier : {
+        watch: {
+            js: {
+                files: ["src/**/*.js", "src/**/*.css"],
+                tasks: ['default']
+            }
+        },
+        jsbeautifier : {
 			files : ['dist/angularjs-nvd3-directives.js'],
 			options : {
 				js: {
@@ -135,6 +141,6 @@ module.exports = function (grunt) {
 	grunt.registerTask('bower', ['bower:install']);
 
 	// Default task.
-	grunt.registerTask('default', ['clean', 'ngmin', 'concat', 'jsbeautifier', 'jshint', 'uglify', 'copy:main']);
+    grunt.registerTask('default', ['clean', 'ngmin', 'concat', 'jsbeautifier', 'jshint', 'uglify', 'copy:main']);
 
 };
