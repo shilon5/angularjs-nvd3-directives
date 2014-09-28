@@ -1573,6 +1573,7 @@
                     margin: '&',
                     tooltipcontent: '&',
                     color: '&',
+                    barcolor: '&',
                     x: '&',
                     y: '&',
                     clipvoronoi: '@',
@@ -1691,6 +1692,11 @@
                                         .noData(attrs.nodata === undefined ? 'No Data Available.' : scope.nodata)
                                         .interpolate(attrs.interpolate === undefined ? 'linear' : attrs.interpolate)
                                         .color(attrs.color === undefined ? nv.utils.defaultColor()  : scope.color());
+
+                                    if(attrs.barcolor){
+//                                        chart.lines.forceX(scope.$eval(attrs.forcex));
+                                        chart.bars.barColor(scope.barcolor());
+                                    }
 
                                     if(attrs.forcex){
                                         chart.lines.forceX(scope.$eval(attrs.forcex));

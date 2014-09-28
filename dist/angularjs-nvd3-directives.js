@@ -1,4 +1,4 @@
-/*! angularjs-nvd3-directives - v0.0.9-beta - 2014-08-21
+/*! angularjs-nvd3-directives - v0.0.9-beta - 2014-09-28
  * http://cmaurer.github.io/angularjs-nvd3-directives
  * Copyright (c) 2014 Christian Maurer; Licensed Apache License, v2.0 */
 ( function () {
@@ -2117,6 +2117,7 @@
           margin: '&',
           tooltipcontent: '&',
           color: '&',
+          barcolor: '&',
           x: '&',
           y: '&',
           clipvoronoi: '@',
@@ -2218,6 +2219,10 @@
                   } : scope.x() ).y( attrs.y === undefined ? function ( d ) {
                     return d[ 1 ];
                   } : scope.y() ).showLegend( attrs.showlegend === undefined ? false : attrs.showlegend === 'true' ).tooltips( attrs.tooltips === undefined ? false : attrs.tooltips === 'true' ).noData( attrs.nodata === undefined ? 'No Data Available.' : scope.nodata ).interpolate( attrs.interpolate === undefined ? 'linear' : attrs.interpolate ).color( attrs.color === undefined ? nv.utils.defaultColor() : scope.color() );
+                  if ( attrs.barcolor ) {
+                    //                                        chart.lines.forceX(scope.$eval(attrs.forcex));
+                    chart.bars.barColor( scope.barcolor() );
+                  }
                   if ( attrs.forcex ) {
                     chart.lines.forceX( scope.$eval( attrs.forcex ) );
                     chart.bars.forceX( scope.$eval( attrs.forcex ) );
