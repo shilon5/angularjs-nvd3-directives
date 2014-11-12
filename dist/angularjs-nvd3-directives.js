@@ -1,4 +1,4 @@
-/*! angularjs-nvd3-directives - v0.0.9-beta - 2014-09-28
+/*! angularjs-nvd3-directives - v0.0.9-beta - 2014-11-12
  * http://cmaurer.github.io/angularjs-nvd3-directives
  * Copyright (c) 2014 Christian Maurer; Licensed Apache License, v2.0 */
 ( function () {
@@ -795,7 +795,59 @@
       d3.select( '#' + attrs.id + ' svg' ).attr( 'height', scope.height ).attr( 'width', scope.width ).datum( data ).transition().duration( attrs.transitionduration === undefined ? 250 : +attrs.transitionduration ).call( chart );
     }
   }
-  angular.module( 'nvd3ChartDirectives', [] ).directive( 'nvd3LineChart', [
+  angular.module( 'nvd3ChartDirectives', [] ).directive( 'nvd3ResizeableChart', [
+    '$window',
+    function ( $window ) {
+      return {
+        restrict: 'A',
+        scope: false,
+        require: [
+          '?nvd3LineChart',
+          '?nvd3CumulativeLineChart',
+          '?nvd3StackedAreaChart',
+          '?nvd3MultiBarChart',
+          '?nvd3DiscreteBarChart',
+          '?nvd3HistoricalBarChart',
+          '?nvd3MultiBarHorizontalChart',
+          '?nvd3PieChart',
+          '?nvd3ScatterChart',
+          '?nvd3ScatterPlusLineChart',
+          '?nvd3LinePlusBarChart',
+          '?nvd3LineWithFocusChart',
+          '?nvd3BulletChart',
+          '?nvd3SparklineChart',
+          '?nvd3SparklineWithBandlinesChart'
+        ],
+        link: function ( scope, element, attrs, controllers ) {
+          var w = angular.element( $window );
+          var activeController = controllers.filter( function ( it ) {
+              return !!it;
+            } ),
+            nvd3ChartCtrl = activeController.length > 0 ? activeController[ 0 ] : null;
+          if ( !!nvd3ChartCtrl ) {
+            w.on( 'resize', nvd3ChartCtrl.onresize );
+            scope.$on( '$destroy', function () {
+              w.off( 'resize', nvd3ChartCtrl.onresize );
+            } );
+          }
+        }
+      };
+    }
+  ] ).controller( 'nvd3ChartCtrl', [
+    '$scope',
+    '$element',
+    '$attrs',
+    function ( $scope, $element, $attrs ) {
+      $scope.d3Call = function ( data, chart ) {
+        checkElementID( $scope, $attrs, $element, chart, data );
+      };
+      this.onresize = function () {
+        if ( $scope.chart ) {
+          $scope.chart.update();
+        }
+      };
+    }
+  ] ).directive( 'nvd3LineChart', [
     function () {
       return {
         restrict: 'EA',
@@ -875,16 +927,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -911,7 +954,7 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1004,16 +1047,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -1041,7 +1075,7 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1142,16 +1176,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -1214,8 +1239,9 @@
                     chart.sizeDomain( scope.sizedomain() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
+                  // stackedareachart
                   return chart;
                 },
                 callback: attrs.callback === undefined ? null : scope.callback()
@@ -1302,16 +1328,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -1331,7 +1348,7 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1415,16 +1432,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -1447,7 +1455,7 @@
                     chart.valueFormat( scope.valueformat() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1534,16 +1542,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -1569,7 +1568,7 @@
                     chart.valueFormat( scope.valueformat() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1653,16 +1652,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -1685,7 +1675,7 @@
                     chart.valueFormat( scope.valueformat() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1735,16 +1725,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -1766,7 +1747,7 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1871,16 +1852,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -1941,7 +1913,7 @@
                     chart.zScale( scope.zscale() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2044,16 +2016,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -2084,7 +2047,7 @@
                     } : scope.shape() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2194,16 +2157,7 @@
           lineinteractive: '@',
           barinteractive: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -2241,7 +2195,7 @@
                     chart.bars.interactive( false );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2371,16 +2325,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -2436,7 +2381,7 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2469,16 +2414,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -2494,7 +2430,7 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2530,16 +2466,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            $scope.d3Call = function ( data, chart ) {
-              checkElementID( $scope, $attrs, $element, chart, data );
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -2562,7 +2489,7 @@
                     chart.yScale( scope.yScale() );
                   }
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2607,57 +2534,7 @@
           objectequality: '@',
           transitionduration: '@'
         },
-        controller: [
-          '$scope',
-          '$element',
-          '$attrs',
-          function ( $scope, $element, $attrs ) {
-            //expect scope to contain bandlineProperties
-            $scope.d3Call = function ( data, chart ) {
-              var dataAttributeChartID;
-              //randomly generated if id attribute doesn't exist
-              var selectedChart;
-              var sLineSelection;
-              var bandlineData;
-              var bandLines;
-              if ( !$attrs.id ) {
-                dataAttributeChartID = 'chartid' + Math.floor( Math.random() * 1000000001 );
-                angular.element( $element ).attr( 'data-chartid', dataAttributeChartID );
-                selectedChart = d3.select( '[data-iem-chartid=' + dataAttributeChartID + '] svg' ).attr( 'height', $scope.height ).attr( 'width', $scope.width ).datum( data );
-                //chart.yScale()($scope.bandlineProperties.median)
-                //var sLineSelection = d3.select('svg#' + $attrs.id + ' g.nvd3.nv-wrap.nv-sparkline');
-                sLineSelection = d3.select( '[data-iem-chartid=' + dataAttributeChartID + '] svg' + ' g.nvd3.nv-wrap.nv-sparkline' );
-                bandlineData = [
-                  $scope.bandlineProperties.min,
-                  $scope.bandlineProperties.twentyFithPercentile,
-                  $scope.bandlineProperties.median,
-                  $scope.bandlineProperties.seventyFithPercentile,
-                  $scope.bandlineProperties.max
-                ];
-                bandLines = sLineSelection.selectAll( '.nv-bandline' ).data( [ bandlineData ] );
-                bandLines.enter().append( 'g' ).attr( 'class', 'nv-bandline' );
-                selectedChart.transition().duration( $attrs.transitionduration === undefined ? 250 : +$attrs.transitionduration ).call( chart );
-              } else {
-                if ( !d3.select( '#' + $attrs.id + ' svg' ) ) {
-                  d3.select( '#' + $attrs.id ).append( 'svg' );
-                }
-                selectedChart = d3.select( '#' + $attrs.id + ' svg' ).attr( 'height', $scope.height ).attr( 'width', $scope.width ).datum( data );
-                //chart.yScale()($scope.bandlineProperties.median)
-                sLineSelection = d3.select( 'svg#' + $attrs.id + ' g.nvd3.nv-wrap.nv-sparkline' );
-                bandlineData = [
-                  $scope.bandlineProperties.min,
-                  $scope.bandlineProperties.twentyFithPercentile,
-                  $scope.bandlineProperties.median,
-                  $scope.bandlineProperties.seventyFithPercentile,
-                  $scope.bandlineProperties.max
-                ];
-                bandLines = sLineSelection.selectAll( '.nv-bandline' ).data( [ bandlineData ] );
-                bandLines.enter().append( 'g' ).attr( 'class', 'nv-bandline' );
-                selectedChart.transition().duration( $attrs.transitionduration === undefined ? 250 : +$attrs.transitionduration ).call( chart );
-              }
-            };
-          }
-        ],
+        controller: 'nvd3ChartCtrl',
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -2706,7 +2583,7 @@
                   configureYaxis( chart, scope, attrs );
                   processEvents( chart, scope );
                   scope.d3Call( data, chart );
-                  nv.utils.windowResize( chart.update );
+                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
