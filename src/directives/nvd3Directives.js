@@ -1555,6 +1555,7 @@
                                         .fisheye(attrs.fisheye === undefined ? 0 : (+attrs.fisheye))
                                         .noData(attrs.nodata === undefined ? 'No Data Available.' : scope.nodata)
                                         .color(attrs.color === undefined ? nv.utils.defaultColor()  : scope.color())
+                                        .forceY(attrs.forcey === undefined ? [0,11] : JSON.parse(attrs.forcey))
                                         .transitionDuration(attrs.transitionduration === undefined ? 250 : (+attrs.transitionduration));
 
                                     if(attrs.shape){
@@ -1689,6 +1690,8 @@
 
                 },
                 controller: 'nvd3ChartCtrl',
+                template: '<div></div>',
+                replace: true,
                 link: function(scope, element, attrs){
                     scope.datafn()(function(data){
 
