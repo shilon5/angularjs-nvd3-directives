@@ -246,7 +246,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -393,7 +392,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -591,7 +589,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     // stackedareachart
 
@@ -729,7 +726,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -859,7 +855,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -993,7 +988,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1127,7 +1121,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1221,7 +1214,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1414,7 +1406,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1564,7 +1555,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1690,8 +1680,6 @@
 
                 },
                 controller: 'nvd3ChartCtrl',
-                template: '<div></div>',
-                replace: true,
                 link: function(scope, element, attrs){
                     scope.datafn()(function(data){
 
@@ -1743,7 +1731,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -1949,7 +1936,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -2017,7 +2003,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -2095,7 +2080,6 @@
                                     }
 
                                     scope.d3Call(data, chart);
-//                                    nv.utils.windowResize(chart.update);
                                     scope.chart = chart;
                                     return chart;
                                 },
@@ -2207,8 +2191,6 @@
                                     processEvents(chart, scope);
 
                                     scope.d3Call(data, chart);
-
-//                                    nv.utils.windowResize(chart.update);
 
                                     scope.chart = chart;
                                     return chart;

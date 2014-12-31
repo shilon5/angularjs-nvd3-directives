@@ -954,7 +954,6 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1075,7 +1074,6 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1239,7 +1237,6 @@
                     chart.sizeDomain( scope.sizedomain() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   // stackedareachart
                   return chart;
@@ -1348,7 +1345,6 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1455,7 +1451,6 @@
                     chart.valueFormat( scope.valueformat() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1568,7 +1563,6 @@
                     chart.valueFormat( scope.valueformat() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1675,7 +1669,6 @@
                     chart.valueFormat( scope.valueformat() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1747,7 +1740,6 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -1913,7 +1905,6 @@
                     chart.zScale( scope.zscale() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2050,7 +2041,6 @@
                     } : scope.shape() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2161,8 +2151,6 @@
           barinteractive: '@'
         },
         controller: 'nvd3ChartCtrl',
-        template: '<div></div>',
-        replace: true,
         link: function ( scope, element, attrs ) {
           scope.datafn()( function ( data ) {
             if ( data ) {
@@ -2200,7 +2188,6 @@
                     chart.bars.interactive( false );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2386,7 +2373,6 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2435,7 +2421,6 @@
                     chart.tooltipContent( scope.tooltipcontent() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2494,7 +2479,6 @@
                     chart.yScale( scope.yScale() );
                   }
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
@@ -2588,7 +2572,6 @@
                   configureYaxis( chart, scope, attrs );
                   processEvents( chart, scope );
                   scope.d3Call( data, chart );
-                  //                                    nv.utils.windowResize(chart.update);
                   scope.chart = chart;
                   return chart;
                 },
