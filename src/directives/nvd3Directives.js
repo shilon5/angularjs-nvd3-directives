@@ -1514,7 +1514,8 @@
                     objectequality: '@',
 
                     //d3.js specific
-                    transitionduration: '@'
+                    transitionduration: '@',
+                    itemclick: '&'
                 },
                 controller: 'nvd3ChartCtrl',
                 link: function(scope, element, attrs){
@@ -1547,6 +1548,7 @@
                                         .noData(attrs.nodata === undefined ? 'No Data Available.' : scope.nodata)
                                         .color(attrs.color === undefined ? nv.utils.defaultColor()  : scope.color())
                                         .forceY(attrs.forcey === undefined ? [0,11] : JSON.parse(attrs.forcey))
+                                        .itemClick(attrs.itemclick === undefined ? function(){} : scope.itemclick())
                                         .transitionDuration(attrs.transitionduration === undefined ? 250 : (+attrs.transitionduration));
 
                                     if(attrs.shape){
