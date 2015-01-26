@@ -1,4 +1,4 @@
-/*! angularjs-nvd3-directives - v0.0.9-beta - 2015-01-12
+/*! angularjs-nvd3-directives - v0.0.9-beta - 2015-01-26
  * http://cmaurer.github.io/angularjs-nvd3-directives
  * Copyright (c) 2015 Christian Maurer; Licensed Apache License, v2.0 */
 ( function () {
@@ -1944,8 +1944,8 @@
           x: '&',
           y: '&',
           size: '&',
-          forceX: '@',
-          forceY: '@',
+          forcex: '@',
+          forcey: '@',
           forceSize: '@',
           xrange: '&',
           xdomain: '&',
@@ -2034,7 +2034,7 @@
                   } : scope.tooltipycontent() ).showControls( attrs.showcontrols === undefined ? false : attrs.showcontrols === 'true' ).showLegend( attrs.showlegend === undefined ? false : attrs.showlegend === 'true' ).showDistX( attrs.showdistx === undefined ? false : attrs.showdistx === 'true' ).showDistY( attrs.showdisty === undefined ? false : attrs.showdisty === 'true' ).fisheye( attrs.fisheye === undefined ? 0 : +attrs.fisheye ).noData( attrs.nodata === undefined ? 'No Data Available.' : scope.nodata ).color( attrs.color === undefined ? nv.utils.defaultColor() : scope.color() ).forceY( attrs.forcey === undefined ? [
                     0,
                     11
-                  ] : JSON.parse( attrs.forcey ) ).itemClick( attrs.itemclick === undefined ? function () {} : scope.itemclick() ).transitionDuration( attrs.transitionduration === undefined ? 250 : +attrs.transitionduration );
+                  ] : JSON.parse( attrs.forcey ) ).forceX( attrs.forcex === undefined ? [] : JSON.parse( attrs.forcex ) ).itemClick( attrs.itemclick === undefined ? function () {} : scope.itemclick() ).transitionDuration( attrs.transitionduration === undefined ? 250 : +attrs.transitionduration );
                   if ( attrs.shape ) {
                     chart.scatter.onlyCircles( false );
                     chart.scatter.shape( attrs.shape === undefined ? function ( d ) {

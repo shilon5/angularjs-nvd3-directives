@@ -1445,8 +1445,8 @@
                     x: '&',
                     y: '&',
                     size: '&',
-                    forceX: '@',
-                    forceY: '@',
+                    forcex: '@',
+                    forcey: '@',
                     forceSize: '@',
                     xrange: '&',
                     xdomain: '&',
@@ -1548,6 +1548,7 @@
                                         .noData(attrs.nodata === undefined ? 'No Data Available.' : scope.nodata)
                                         .color(attrs.color === undefined ? nv.utils.defaultColor()  : scope.color())
                                         .forceY(attrs.forcey === undefined ? [0,11] : JSON.parse(attrs.forcey))
+                                        .forceX(attrs.forcex === undefined ? [] : JSON.parse(attrs.forcex))
                                         .itemClick(attrs.itemclick === undefined ? function(){} : scope.itemclick())
                                         .transitionDuration(attrs.transitionduration === undefined ? 250 : (+attrs.transitionduration));
 
